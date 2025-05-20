@@ -36,6 +36,6 @@ public class EjercicioLocalizacionDeElementos {
         WebElement blinkingText= driver.findElement(By.linkText("QA Meetup with Rahul Shetty @Pune - Limited Seats! Book Now!"));
         WebElement blinkingTextPartial= driver.findElement(By.partialLinkText("QA Meetup"));
         WebElement footerUrlDiscountCoBrokenLink= driver.findElement(By.partialLinkText("Broken Link"));
-
+        driver.quit();
     }
 }
