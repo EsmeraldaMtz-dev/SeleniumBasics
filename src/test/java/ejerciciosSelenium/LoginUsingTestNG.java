@@ -6,16 +6,25 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.time.Duration;
 
 public class LoginUsingTestNG {
-    @Test
-    public void loginWithValidCredentials() {
-        WebDriver driver = new ChromeDriver();
+    WebDriver driver;
+
+    //Se usa before method y no before class porque las acciones de un test no deben depender del anterior
+    //Y se pueden afectar el uno al otro as[in que hay que generar un nuevo Chrome Driver para cada test.
+    @BeforeMethod
+    public void declareDriver() {
+        driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get("https://rahulshettyacademy.com/locatorspractice/");
+
+    }
+
+    @Test
+    public void loginWithValidCredentials() {
         WebElement username = driver.findElement(By.xpath("//input[@placeholder='Username']"));
         WebElement password = driver.findElement(By.xpath("//input[@type='password']"));
         WebElement signInBtn = driver.findElement(By.xpath("//button[text()='Sign In']"));
@@ -30,15 +39,10 @@ public class LoginUsingTestNG {
         driverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class='logout-btn']")));
         WebElement message = driver.findElement(By.xpath("//h1"));
         System.out.println(message.getText());
-
-        driver.quit();
     }
 
     @Test
     public void loginWithInvalidCredentials() {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.get("https://rahulshettyacademy.com/locatorspractice/");
         WebElement username = driver.findElement(By.xpath("//input[@placeholder='Username']"));
         WebElement password = driver.findElement(By.xpath("//input[@type='password']"));
         WebElement signInBtn = driver.findElement(By.xpath("//button[text()='Sign In']"));
@@ -51,7 +55,10 @@ public class LoginUsingTestNG {
 
         WebElement message = driver.findElement(By.xpath("//p[@class='error']"));
         System.out.println(message.getText());
+    }
 
+    @AfterMethod
+    public void closeDriver(){
         driver.quit();
     }
 }
