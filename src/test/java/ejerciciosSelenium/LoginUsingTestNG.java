@@ -14,13 +14,12 @@ public class LoginUsingTestNG {
     WebDriver driver;
 
     //Se usa before method y no before class porque las acciones de un test no deben depender del anterior
-    //Y se pueden afectar el uno al otro as[in que hay que generar un nuevo Chrome Driver para cada test.
+    //Y se pueden afectar el uno al otro así que hay que generar un nuevo Chrome Driver para cada test.
     @BeforeMethod
     public void declareDriver() {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get("https://rahulshettyacademy.com/locatorspractice/");
-
     }
 
     @Test
